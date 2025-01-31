@@ -5,6 +5,3 @@ from django.db import models
 class CartShop(models.Model):
 <<<<<<< Updated upstream
     product = models.CharField(max_length=200) 
-=======
-    product 
->>>>>>> Stashed changes
