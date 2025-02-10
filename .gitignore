@@ -1,3 +1,36 @@
+# 1. Environment & Security
 .env
+
+# 2. Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 3. Virtual Environment
+venv/
+.env/
+
+# 4. Database
+db.sqlite3
+*.db
+
+# 5. Django Migrations (Opsional)
+*/migrations/
+!*/migrations/__init__.py
+
+# 6. Static & Media Files
+/static/
+media/
+
+# 7. Logs
+*.log
+logs/
+
+# # 8. Deployment (Opsional)
+# docker-compose.override.yml
+# .heroku/
+
+
 db.sqlite3
 DBDesign.pdf
