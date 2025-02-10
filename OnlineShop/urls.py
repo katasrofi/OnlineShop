@@ -28,6 +28,7 @@ def home_redirect(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('__reload__/', include('django_browser_reload.urls')),
     path('', home_redirect),
 ]
 # Automatic the url 
@@ -44,6 +45,8 @@ for app in settings.INSTALLED_APPS:
 
 # Set the media as main dir for uploaded image 
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
     urlpatterns += static(settings.MEDIA_URL, 
                           document_root=settings.MEDIA_ROOT)
 
