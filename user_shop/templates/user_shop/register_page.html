@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+<body>
+  {% block content %}
+
+  <div
+    class="flex min-h-screen items-center justify-center bg-gray-200"
+  >
+    <div
+      class="w-full max-w-md bg-white p-8 shadow-lg rounded-xl"
+    >
+      <h2
+        class="text-2xl font-semibold text-center text-gray-700"
+      >
+        Registration
+      </h2>
+      <form method="POST" action="" class="mt-6">
+        {% csrf_token %}
+        <!-- Name  -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium"
+          >
+            Name:
+          </label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter the name"
+            class="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium"
+          >
+            Email:
+          </label>
+          <input
+            type="text"
+            name="email"
+            placeholder="example@email.com"
+            class="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium"
+          >
+            Phone Number:
+          </label>
+          <input
+            type="text"
+            name="phone"
+            placeholder="+1XXXXXXXXXXX"
+            class="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Role  -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium mb-2"
+          >
+            Role:
+          </label>
+
+          <div class="flex flex-col space-y-2">
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="role"
+                value="ADMIN"
+                class="mr-2"
+              />
+              Admin
+            </label>
+
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="role"
+                value="CUSTOMER"
+                class="mr-2"
+              />
+              Customer
+            </label>
+
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="role"
+                value="SELLER"
+                class="mr-2"
+              />
+              Seller
+            </label>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium"
+          >
+            Password:
+          </label>
+          <input
+            type="password"
+            name="password1"
+            placeholder="Password"
+            class="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Confirm Password  -->
+        <div class="mb-4">
+          <label
+            class="block text-gray-600 font-medium"
+          >
+            Confirm Password:
+          </label>
+          <input
+            type="password"
+            name="password2"
+            placeholder="Confirm password"
+            class="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+        >
+          Registration
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endblock content %}
+</body>
