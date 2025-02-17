@@ -1,34 +1,47 @@
-{% load static %}
-<!DOCTYPE html>
+{% load static %} {% load django_browser_reload %}
+<!doctype html>
 <html lang="en">
-    <!-- Web settings -->
-    <!-- Set the endoder -->
-    <meta charset="utf-8">
+  <!-- Web settings -->
+  <!-- Set the endoder -->
+  <meta charset="utf-8" />
 
-    <!-- Set the view for dynamic change when web is open in mobile -->
-    <meta name="viewport" content="width=device.width, initial-scale=1.0">
+  <!-- Set the view for dynamic change when web is open in mobile -->
+  <meta
+    name="viewport"
+    content="width=device.width, initial-scale=1.0"
+  />
 
-    <!-- Set the keyword for SEO optimisation -->
-    <meta name="description" content="Welcome to my Online Shop">
+  <!-- Set the keyword for SEO optimisation -->
+  <meta
+    name="description"
+    content="Welcome to my Online Shop"
+  />
 
-    <!-- Title Online Shop -->
-    <title>Sierra</title>
+  <!-- Title Online Shop -->
+  <title>Sierra</title>
 
-    <!-- Script for connect to tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Script for connect to tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Load css files generate by tailwind -->
-    <link href="{% static 'css/styles.css'%}" 
-            rel="stylesheet">
+  <!-- Load css files generate by tailwind -->
+  <link
+    href="{% static 'css/styles.css'%}"
+    rel="stylesheet"
+  />
 
-    <!-- Linked font awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
-            rel="stylesheet">
-
+  <!-- Linked font awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
 </html>
 
-{% block content %}
+{% include 'navbar.html' %}
 <body>
-    
+  {% block content %}
+  <main>
+    <div></div>
+  </main>
+  {% endblock content %} {% comment %} Reload Script
+  {% endcomment %} {% django_browser_reload_script %}
 </body>
-{% endblock content %}
