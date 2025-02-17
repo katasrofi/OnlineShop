@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
-<!DOCTYPE>
+<!DOCTYPE >
 
-{% block content %}
 <body>
+  {% block content %}
   <p>
     Hello
+    <br />
   </p>
+  <div>
+    <!--Reister page -->
+    <a
+      href="{% url 'user_shop:register'%}"
+      class="text-xl font-bold text-blue-500"
+    >
+      Register
+    </a>
+
+    <br />
+    <!-- Login Link -->
+    <a
+      href="{% url 'user_shop:login' %}"
+      class="text-xl font-bold text-blue-500"
+    >
+      Login
+    </a>
+  </div>
+
+  <div>
+    {% for product in product_list %}
+    <li>{{product}}</li>
+    {% endfor %}
+  </div>
+  {% endblock content %}
 </body>
-{% endblock content %}
