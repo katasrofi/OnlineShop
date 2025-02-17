@@ -1,0 +1,53 @@
+<nav
+  class="bg-blue-600 p-4 text-white flex justify-between items-center"
+>
+  <a
+    href="{% url 'base:home' %}"
+    class="text-xl font-bold hover:underline"
+  >
+    Seira Shop
+  </a>
+
+  <div class="hidden md:flex space-x-4">
+    <!-- Home  -->
+    <a
+      href="{%url 'base:home' %}"
+      class="hover:underline text-white"
+    >
+      Home
+    </a>
+
+    <!-- Products -->
+    <!-- Carts -->
+    {% if request.user.is_authenticated %}
+    <form
+      action="{% url 'user_shop:logout' %}"
+      method="post"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <button
+        type="submit"
+        class="hover:underline text-white"
+      >
+        Logout
+      </button>
+    </form>
+
+    {% else %}
+    <form
+      action="{% url 'user_shop:login' %}"
+      method="post"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <buttonn
+        type="submit"
+        class="hover:underline text-white"
+      >
+        Login
+      </buttonn>
+    </form>
+    {% endif %}
+  </div>
+</nav>
