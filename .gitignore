@@ -31,6 +31,23 @@ logs/
 # docker-compose.override.yml
 # .heroku/
 
+# Temporary file 
+# Docker File 
+docker/data/
+docker/logs/
+docker/tmp/
+docker/volumes/
+.dockerignore
 
-db.sqlite3
+# Nginx File 
+nginx/logs/
+nginx/cache/
+nginx/tmp/
+
+# IDE
+.vscode/
+
+# Dummy data generate 
+dummy_generate.py
+# Image 
 DBDesign.pdf
