@@ -1,7 +1,11 @@
-# User Urls 
+# User Urls
 from django.urls import path
-from . import views 
+from . import views
+
+app_name = "user_shop"
 
 urlpatterns = [
-    path('product_item', Product.as_view(), name='product_item')    
+    path("register/", views.RegisterPage.as_view(), name="register"),
+    path("login/", views.LoginPage.as_view(), name="login"),
+    path("logout/", views.LogoutPage.as_view(), name="logout"),
 ]
