@@ -1,7 +1,7 @@
-# Cart Urls 
+# Cart Urls
 from django.urls import path
-from . import views 
+from . import views
 
-urlpatterns = [
-    
-]
+app_name = "cart_shop"
+
+urlpatterns = []
