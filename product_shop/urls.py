@@ -1,7 +1,7 @@
-# Product Urls 
+# Product Urls
 from django.urls import path
-from . import views 
+from . import views
 
-urlpatterns = [
-    
-]
+app_name = "product_shop"
+
+urlpatterns = []
