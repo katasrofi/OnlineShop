@@ -1,7 +1,7 @@
-# Orders Urls 
+# Orders Urls
 from django.urls import path
-from . import views 
+from . import views
 
-urlpatterns = [
-    
-]
+app_name = "orders_shop"
+
+urlpatterns = []
