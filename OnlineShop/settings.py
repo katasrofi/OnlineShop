@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
+
     # Apps I installed
     "django_browser_reload",
     "debug_toolbar",
@@ -51,9 +53,11 @@ INSTALLED_APPS = [
     "orders_shop.apps.OrdersConfig",
     "product_shop.apps.ProductConfig",
     "user_shop.apps.UserConfig",
+
     # Vue
     "rest_framework",
     "rest_framework_simplejwt",
+
 ]
 
 MIDDLEWARE = [
