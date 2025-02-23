@@ -47,6 +47,9 @@ nginx/tmp/
 # IDE
 .vscode/
 
+# Djlint config 
+run_djlint.sh
+
 # Dummy data generate 
 dummy_generate.py
 # Image 
