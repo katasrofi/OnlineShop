@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load humanize %}
+<body>
+    {% block content %}
+        <!-- Result name   -->
+        <div class="flex">
+            <!-- Category Filter -->
+            <aside class="w-1/4 p-4 border-r border-gray-300">
+                <h2 class="text-xl font-semibold mb-4">Filters</h2>
+                <div>
+                    <form method='GET' action="{% url 'product_shop:search_product' %}">
+                        <label for="category">Category:</label>
+                        <select id="category"
+                                class="bg-white text-black border border-grey-300 rounded px-2 py-1"
+                                name="category">
+                            <option class="bg-white text-black" value="">All</option>
+                            {% for category in categories %}
+                                <option class="bg-white text-black mb-4"
+                                        value="{{ category.id }}"
+                                        {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <!-- Price Filter -->
+                        <button type="submit"
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4">
+                            Apply Filters
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- Item Result -->
+            <main class="w-3/4 p-4">
+                <h2 class="text-xl font-semibold mb-4">Products</h2>
+                {% if results %}
+                    <div class="grid grid-cols gap-6">
+                        {% for item in results %}
+                            <div class="border rounded-lg p-4">
+                                <h3 class="font-medium">{{ item.name }}</h3>
+                                <p class="text-gray-600">RP{{ item.price|intcomma }}</p>
+                                <p class="text-gray-600">{{ item.avg_rating }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No Products Found</p>
+                {% endif %}
+            </main>
+            <!-- End result -->
+        </div>
+    {% endblock content %}
+</body>
