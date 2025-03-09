@@ -19,6 +19,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products/")
     name = models.CharField(max_length=1000)
     description = models.TextField()
+    attributes = models.JSONField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
     stock = models.PositiveIntegerField()
     avg_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0)
