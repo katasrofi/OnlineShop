@@ -1,13 +1,24 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-from django.contrib import auth, messages
-from django.contrib.auth import views
-from django.views import generic
+from django.shortcuts import (
+        render, 
+        redirect
+)
+from django.contrib import (
+        auth, 
+        messages
+)
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+)
+from django.views.generic.edit import FormView 
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .forms import RegisterForm
+from .serializers import EmailTokenObtainPairSerializer
 
 
 # Create your views here.
-class RegisterPage(generic.edit.FormView):
+class RegisterPage(FormView):
     template_name = "user_shop/register_page.html"
     form_class = RegisterForm
     success_url = reverse_lazy("base:home")
@@ -29,8 +40,8 @@ class RegisterPage(generic.edit.FormView):
         messages.error(self.request, "Registration failed. Please check your input.")
         return super().form_invalid(form)
 
-
-class LoginPage(views.LoginView):
+# Login Page View
+class LoginPage(LoginView):
     template_name = "user_shop/login_page.html"
     redirect_authenticated_user = True
 
@@ -70,8 +81,11 @@ class LoginPage(views.LoginView):
     def get_success_url(self):
         return reverse_lazy("base:home")
 
+# Serializers Login Page 
+class EmailTokenObtainPairView(TokenObtainPairView):
+    serializer_class = EmailTokenObtainPairSerializer
 
-class LogoutPage(views.LogoutView):
+class LogoutPage(LogoutView):
     next_page = reverse_lazy("base:home")
 
     def dispatch(self, request, *args, **kwargs):
