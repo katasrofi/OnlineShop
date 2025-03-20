@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device.width, initial-scale=1.0" />
     <!-- Set the keyword for SEO optimisation -->
     <meta name="description" content="Welcome to my Online Shop" />
+    <!--Icon favicon -->
+    <link href="{% static 'favicon.svg' %}" rel="icon" type="image/svg+xml" />
     <!-- Title Online Shop -->
     <title>Sierra</title>
     <!-- Script for connect to tailwind -->
@@ -24,8 +26,10 @@
     {% block content %}
         <main>
             <div></div>
+            <div class=""></div>
+            <div class=""></div>
+            <div class=""></div>
         </main>
     {% endblock content %}
-    {% comment %} Reload Script
-    {% endcomment %} {% django_browser_reload_script %}
+    {% django_browser_reload_script %}
 </body>
