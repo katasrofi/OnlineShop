@@ -40,9 +40,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     # Role Choice
     role_choice = [
-        ("ADMIN", "Admin"),
+        ("ADMIN", "ADMIN"),
         ("CUSTOMER", "CUSTOMER"),
-        ("SELLER", "Seller"),
+        ("SELLER", "SELLER"),
     ]
     role = models.CharField(max_length=20, choices=role_choice, default="CUSTOMER")
 
