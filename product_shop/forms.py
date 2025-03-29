@@ -8,7 +8,7 @@ class AddProductForm(forms.ModelForm):
         fields = ["category", "name", "description", "attributes", "price", "stock"]
 
     # Images form to handle several image 
-    images = forms.ImageField(widget=ClearableFileInput(attrs={"multiple": True}), required=False)
+    # images = forms.FileField(widget=forms.FileInput(attrs={"multiple": True}), required=False)
 
     # Additional information for spesific product 
     attributes_keys = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -25,7 +25,7 @@ class AddProductForm(forms.ModelForm):
         # Create the keys and values dictionary 
         attributes = {
             key.strip(): value.strip()
-            for key, value in zip(keys, values):
+            for key, value in zip(keys, values)
             if key and value 
         }
 
