@@ -3,9 +3,11 @@
     {% block content %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ add_profuct_form.as_p }}
+            {{ add_product_form.as_p }}
+            <label for="id_images">Upload Images:</label>
+            <input type="file" name="images" id="id_images" multiple>
+            <button type="submit" class="text-black text-sm font-bold">Submit</button>
         </form>
-        <button type="submit" class="text-black text-sm font-bold">Submit</button>
         <a></a>
     {% endblock content %}
 </body>
