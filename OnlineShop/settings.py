@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
 
+    # Payment
+    "payments",
+
 ]
 
 MIDDLEWARE = [
@@ -93,6 +96,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+PAYMENT_VARIANTS = {
+    "default": ("payments.dummy.DummyProvider", {})
+}
 
 ROOT_URLCONF = "OnlineShop.urls"
 
