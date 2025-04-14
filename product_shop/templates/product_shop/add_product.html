@@ -3,11 +3,52 @@
     {% block content %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ add_product_form.as_p }}
+            {{ form.as_p }}
+            <!-- Handle Image input -->
             <label for="id_images">Upload Images:</label>
             <input type="file" name="images" id="id_images" multiple>
+            <!-- Handle Attributes JSONField input -->
+            <div id="app">
+                <div v-for="{attr, index} in attributes" :key="index">
+                    <input type="text" v-model="attr.key" placeholder="Enter the title">
+                    <input type="text" v-model="attr.value" placeholder="Information">
+                    <button type="button" @click="removeAttribute(index)">X</button>
+                </div>
+                <button type="button" @click="addAttribute">+ Add Additional Information</button>
+                <p>{{ jsonAttributes }}</p>
+                <textarea name="attributes" v-model="jsonAttributes" hidden></textarea>
+            </div>
             <button type="submit" class="text-black text-sm font-bold">Submit</button>
         </form>
-        <a></a>
     {% endblock content %}
+    <!-- Vue Template -->
+    <script>
+const { createApp, ref, computed } = Vue;
+
+createApp({
+    setup() {
+        const attributes = ref([{ key: '', value: '' }]);
+
+        function addAttribute() {
+            attributes.value.push({ key: '', value: '' });
+            console.log("Attribute added:", attributes.value);
+        }
+
+        function removeAttribute(index) {
+            attributes.value.splice(index, 1);
+        }
+
+        const jsonAttributes = computed(() => JSON.stringify(
+            attributes.value.reduce((acc, attr) => {
+                if (attr.key.trim()) {
+                    acc[attr.key] = attr.value;
+                }
+                return acc;
+            }, {})
+        ));
+
+        return { attributes, addAttribute, removeAttribute, jsonAttributes };
+    }
+}).mount("#app");
+    </script>
 </body>
