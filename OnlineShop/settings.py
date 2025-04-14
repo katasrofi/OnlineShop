@@ -96,10 +96,17 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+# Set the payment config
 PAYMENT_VARIANTS = {
-    "default": ("payments.dummy.DummyProvider", {})
+    "default": ("payments.dummy.DummyProvider", {
+        "currency": "USD",
+    })
 }
 
+PAYMENT_HOST = "localhost:8000"
+
+PAYMENT_MODEL = "orders_shop.Payment"
+# Urls settings
 ROOT_URLCONF = "OnlineShop.urls"
 
 INTERNAL_IPS = [
