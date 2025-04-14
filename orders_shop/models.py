@@ -1,5 +1,8 @@
 # Django library
 from django.db import models
+from django.db.models import Sum
+from django.utils.timezone import now 
+from payments.models import BasePayment
 
 # Create your models here.
 class OrderItem(models.Model):
@@ -20,7 +23,11 @@ class OrderItem(models.Model):
     # Order detail 
     order_date = models.DateTimeField(auto_now_add=True)
     address = models.TextField()
-    payment_methode = models.CharField(max_length=255)
+    # payment_methode = models.CharField(max_length=255)
+
+    @property
+    def total_price(self):
+        return self.order_detail.aggregate(total=Sum("total_price"))["total"] or 0
 
 class OrderDetail(models.Model):
     # Relation
@@ -28,17 +35,19 @@ class OrderDetail(models.Model):
                                  related_name='order_detail',
                                  on_delete=models.CASCADE)
     product_id = models.ForeignKey('product_shop.Product',
-                                   related_name='order_products',
+                                   related_name='order_product',
                                    on_delete=models.CASCADE)
 
     # Order detail 
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=12,
-                                      decimal_places=2)
+                                      decimal_places=2,
+                                      null=True,
+                                      blank=True)
 
     # Calculate the total price 
-    def total_price(self):
-        self.total_price = self.product_id,price * self.quantity
+    def save(self, *args, **kwargs):
+        self.total_price = self.product_id.price * self.quantity
         super().save(*args, **kwargs)
 
 class Shipment(models.Model):
@@ -66,40 +75,44 @@ class Shipment(models.Model):
     shipment_price = models.DecimalField(max_digits=10,
                                          decimal_places=2)
     
-class Payment(models.Model):
-    # Relation 
-    order_id = models.ForeignKey(OrderItem,
-                                 related_name='payment',
-                                 on_delete=models.CASCADE)
+# class Payment(models.Model):
+#     # Relation 
+#     order = models.ForeignKey(OrderItem,
+#                                  related_name='payment',
+#                                  on_delete=models.CASCADE)
+#
+#     # Payment detail 
+#     PAYMENT_METHOD_CHOICES = [
+#         ('bank_transfer', 'Bank Transfer'),
+#         ('debit_card', 'Debit Card'),
+#         ('credit_card', 'Credit Card'),
+#         ('paypal', 'PayPal'),
+#         ('gopay', 'GoPay'),
+#         ('ovo', 'OVO'),
+#     ]
+#     payment_methode = models.CharField(max_length=20,
+#                                        choices=PAYMENT_METHOD_CHOICES)
+#
+#     # Status choices 
+#     STATUS_CHOICES = [
+#         ('pending', 'Pending'),
+#         ('approved', 'Approved'),
+#     ]
+#     payment_status = models.CharField(max_length=30,
+#                                       choices=STATUS_CHOICES,
+#                                       default='pending')
+#     payment_date = models.DateTimeField(auto_now_add=True)
+#     payment_reference = models.CharField(max_length=50,
+#                                          unique=True)
+#
+#     def __str__(self):
+        # return f"{self.order_id} - {self.payment_reference}"
 
-    # Payment detail 
-    PAYMENT_METHOD_CHOICES = [
-        ('bank_transfer', 'Bank Transfer'),
-        ('debit_card', 'Debit Card'),
-        ('credit_card', 'Credit Card'),
-        ('paypal', 'PayPal'),
-        ('gopay', 'GoPay'),
-        ('ovo', 'OVO'),
-    ]
-    payment_methode = models.CharField(max_length=20,
-                                       choices=PAYMENT_METHOD_CHOICES)
+class Payment(BasePayment):
+    order = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
+    # currency = models.CharField(max_length=3, default="USD")
 
-    # Status choices 
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-    ]
-    payment_status = models.CharField(max_length=30,
-                                      choices=STATUS_CHOICES,
-                                      default='pending')
-    payment_date = models.DateTimeField(auto_now_add=True)
-    payment_reference = models.CharField(max_length=50,
-                                         unique=True)
 
-    def __str__(self):
-        return f"{self.order_id} - {self.payment_reference}"
-
-from django.utils.timezone import now 
 class Cupon(models.Model):
     cupon_code = models.CharField(max_length=50)    
     expired_date = models.DateTimeField()
