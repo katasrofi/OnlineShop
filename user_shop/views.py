@@ -1,3 +1,20 @@
+"""
+user_shop module:
+
+ThiS module handle account management:
+*Function :
+--------------
+ ** RegisterPage()
+        Create Account and hash the account password
+ ** LoginPage()
+        Check the login is valid or Invalid
+ ** LogoutPage()
+        Logout 
+
+NOTE:
+ * RegisterPage can't create super account 
+
+"""
 from django.urls import reverse_lazy
 from django.shortcuts import (
         render, 

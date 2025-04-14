@@ -54,3 +54,6 @@ run_djlint.sh
 dummy_generate.py
 # Image 
 DBDesign.pdf
+
+# node_modules
+node_modules
