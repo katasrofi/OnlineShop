@@ -13,7 +13,7 @@
         <p>Order product: {{ order_detail }}</p>
         <p>Order product.order_id: {{ order_detail.order_id }}</p>
         <p>Order product.order_id.pk: {{ order_detail.order_id.pk }}</p>
-        {% if order_detail and order_product.order_id.pk %}
+        {% if order_detail and order_detail.order_id.pk %}
             <a href="{% url 'orders_shop:checkout_order' order_detail.order_id.pk %}">Buy Now</a>
         {% else %}
             <p>Not available</p>
