@@ -15,19 +15,34 @@ class Category(models.Model):
 
 class Product(models.Model):
     # Relation
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE
+    )
+    seller = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE
+    )
 
     # Product information
     name = models.CharField(max_length=1000)
     description = models.TextField()
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2
+    )
     stock = models.PositiveIntegerField()
-    avg_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0)
+    avg_rating = models.DecimalField(
+        max_digits=3,
+        decimal_places=2, default=0
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # Additional information to handle unexpexted data 
-    attributes = models.JSONField(default=dict, blank=True, null=True)
+    # Additional information to handle unexpexted data
+    attributes = models.JSONField(
+        default=dict,
+        blank=True, null=True
+    )
 
     # Update avg_rating value
     def update_avg_rating(self):
@@ -44,19 +59,27 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-# Multiple Image 
+# Multiple Image
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name="images", on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product,
+        related_name="images",
+        on_delete=models.CASCADE
+    )
     image = models.ImageField(upload_to="product_shop/")
     is_main = models.BooleanField(default=False)
 
 class Review(models.Model):
     # Relation
     product = models.ForeignKey(
-        Product, related_name="reviews", on_delete=models.CASCADE
+        Product,
+        related_name="reviews",
+        on_delete=models.CASCADE
     )
     user = models.ForeignKey(
-        "user_shop.CustomUser", related_name="review_users", on_delete=models.CASCADE
+        "user_shop.CustomUser",
+        related_name="review_users",
+        on_delete=models.CASCADE
     )
 
     # Review information
