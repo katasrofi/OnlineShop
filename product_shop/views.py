@@ -2,7 +2,7 @@
 Product Shop Module
 
 This module handle everything about product view in web.
-* Function:
+*nFunction:
 ------------------
  ** product_detail()
     Show the detail about product filter by ID
@@ -54,7 +54,7 @@ from orders_shop.models import (
 # Create your views here.
 def product_detail(request, pk):
     """
-    Retrieve and return the detail product based on its ID
+    Retrieve and return the detail product based on its ID(primary key)
 
     Parameters:
         request (HttpRequest): The HTTP request object
@@ -65,15 +65,37 @@ def product_detail(request, pk):
     """
     product = get_object_or_404(Product, pk=pk)
     data = model_to_dict(product)
-    order_items = OrderItem.objects.filter(user_id=request.user, order_status="pending")
+
+    # Order
+    order_items = OrderItem.objects.filter(
+        user_id=request.user,
+        order_status="pending",
+    )
+
     order_detail = OrderDetail.objects.filter(
         order_id__in = order_items,
         product_id=product,
     ).first()
+
+    # Automate create order detail
+    if not order_detail:
+        # Create OrderItem
+        order_item, _ = OrderItem.objects.get_or_create(
+            user_id=request.user,
+            order_status="pending")
+
+        # Create OrderDetail
+        order_detail = OrderDetail.objects.create(
+            order_id = order_item,
+            product_id=product,
+            quantity=1,
+        )
+
     template_name = "product_shop/product_detail.html"
     context = {
         "product_detail": product,
         "data_dict": data,
+        "order_item": order_items,
         "order_detail": order_detail,
         }
     return render(request, template_name, context)
@@ -122,6 +144,7 @@ def search_product(request):
 
     return render(request, template, context)
 
+# Add Product
 @login_required
 def add_product(request):
     """
