@@ -98,9 +98,7 @@ AUTHENTICATION_BACKENDS = [
 
 # Set the payment config
 PAYMENT_VARIANTS = {
-    "default": ("payments.dummy.DummyProvider", {
-        "currency": "USD",
-    })
+    "default": ("payments.dummy.DummyProvider", {}),
 }
 
 PAYMENT_HOST = "localhost:8000"
